@@ -27,20 +27,19 @@ final class BinaryMessageFormat {
         os.writeInt(frameCount);
     };
 
-    private static int readSampleCount(DataInputStream is) throws IOException {
+    private static int readSampleDataLength(DataInputStream is) throws IOException {
         return is.readInt();
     };
 
-    private static void writeSampleCount(DataOutputStream os, int frameCount) throws IOException {
+    private static void writeSampleDataLength(DataOutputStream os, int frameCount) throws IOException {
         os.writeInt(frameCount);
     };
 
-    private static byte[] readShortSamples(DataInputStream is, int sampleCount) throws IOException {
-        byte[] arr = new byte[sampleCount * 2];
-        for(int i = 0; i < sampleCount; i++) {
-            short sample = is.readShort();
-            arr[i*2] = (byte) (sample & 0xFF);   // ________WWWWWWWW out of 16
-            arr[(i*2)+1] = (byte) (sample >> 8); // WWWWWWWW________ out of 16
+    private static byte[] readSampleData(DataInputStream is, int sampleDataLength) throws IOException {
+        byte[] arr = new byte[sampleDataLength];
+        for(int i = 0; i < sampleDataLength; i++) {
+            byte b = is.readByte();
+            arr[i] = b;
         }
         return arr;
     };
@@ -99,8 +98,8 @@ final class BinaryMessageFormat {
 
     public static void write(DataOutputStream os, FramesMessage message) throws IOException {
         writeMessageType(os, MESSAGE_TYPE_FRAMES);
-        writeSampleCount(os, message.getSampleCount());
-        writeShortSamples(os, message.getSamples());
+        writeSampleDataLength(os, message.getSampleData().length);
+        writeShortSamples(os, message.getSampleData());
         os.flush();
     }
 
@@ -136,9 +135,9 @@ final class BinaryMessageFormat {
             case MESSAGE_TYPE_NAK:
                 return new NakMessage();
             case MESSAGE_TYPE_FRAMES:
-                final int sampleCount = readSampleCount(is);
-                final byte[] samples = readShortSamples(is, sampleCount);
-                return new FramesMessage(sampleCount, samples);
+                final int sampleCount = readSampleDataLength(is);
+                final byte[] samples = readSampleData(is, sampleCount);
+                return new FramesMessage(samples);
             case MESSAGE_TYPE_GET_FRAMES:
                 int frameCount = readFrameCount(is);
                 return new GetFramesMessage(frameCount);

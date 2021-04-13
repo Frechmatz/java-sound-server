@@ -34,7 +34,7 @@ public class ActionHandler implements de.frechmatz.javasoundserver.api.ActionHan
                 16,
                 message.getChannelCount(),
                 true,
-                false);
+                true);
         sdl = AudioSystem.getSourceDataLine(af);
         sdl.open();
         sampleRate = message.getSampleRate();
@@ -51,7 +51,7 @@ public class ActionHandler implements de.frechmatz.javasoundserver.api.ActionHan
     @Override
     public void frames(FramesMessage message) throws Exception {
         // Blocking write of samples into Audio Device
-        sdl.write(message.getSamples(), 0, message.getSamples().length);
+        sdl.write(message.getSampleData(), 0, message.getSampleData().length);
     }
 
     @Override

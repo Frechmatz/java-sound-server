@@ -124,7 +124,7 @@ public class BinaryMessageFormatTest {
     void testFramesMessage() throws Exception {
         final byte[] data = {
                 0, MESSAGE_TYPE_FRAMES,
-                0,0,0,2, // Sample-Count
+                0,0,0,4, // Sample-Data-Count
                 0,1, // Sample 1
                 0,2, // Sample 2
                 END_MARKER_1, END_MARKER_2, END_MARKER_3
@@ -133,11 +133,11 @@ public class BinaryMessageFormatTest {
         Message msg = BinaryMessageFormat.read(is);
         assertTrue(msg instanceof FramesMessage);
         FramesMessage framesMessage = (FramesMessage)msg;
-        assertEquals(2, framesMessage.getSampleCount());
-        assertEquals(1, framesMessage.getSamples()[0]);
-        assertEquals(0, framesMessage.getSamples()[1]);
-        assertEquals(2, framesMessage.getSamples()[2]);
-        assertEquals(0, framesMessage.getSamples()[3]);
+        assertEquals(4, framesMessage.getSampleData().length);
+        assertEquals(0, framesMessage.getSampleData()[0]);
+        assertEquals(1, framesMessage.getSampleData()[1]);
+        assertEquals(0, framesMessage.getSampleData()[2]);
+        assertEquals(2, framesMessage.getSampleData()[3]);
         assertEndOfMessageMarker(is);
     }
 

@@ -4,27 +4,17 @@ import de.frechmatz.javasoundserver.api.MessageHandler;
 import de.frechmatz.javasoundserver.api.Message;
 
 public class FramesMessage implements Message {
-    private final int sampleCount;
-    private final byte[] samples;
+    private final byte[] sampleData;
 
     /**
-     * Why sampleCount instead of frameCount: frameCount
-     * would require a context (the number of channels)
-     * without the message could not be read.
-     * @param sampleCount
-     * @param samples
+     * @param sampleData
      */
-    public FramesMessage(int sampleCount, byte[] samples) {
-        this.sampleCount = sampleCount;
-        this.samples = samples;
+    public FramesMessage(byte[] sampleData) {
+        this.sampleData = sampleData;
     }
 
-    public int getSampleCount() {
-        return sampleCount;
-    }
-
-    public byte[] getSamples() {
-        return samples;
+    public byte[] getSampleData() {
+        return sampleData;
     }
 
     @Override
@@ -35,7 +25,6 @@ public class FramesMessage implements Message {
     @Override
     public String toString() {
         return "FramesMessage{" +
-                "sampleCount=" + sampleCount +
-                ", samples=[...] (length=" + samples.length + ")}";
+                "samples=[...] (length=" + sampleData.length + ")}";
     }
 }
