@@ -37,10 +37,7 @@ final class BinaryMessageFormat {
 
     private static byte[] readSampleData(DataInputStream is, int sampleDataLength) throws IOException {
         byte[] arr = new byte[sampleDataLength];
-        for(int i = 0; i < sampleDataLength; i++) {
-            byte b = is.readByte();
-            arr[i] = b;
-        }
+        is.readFully(arr);
         return arr;
     };
 
