@@ -42,6 +42,7 @@ public class Application {
                     Socket socket = serverSocket.accept();
                     logger.info("Connection established");
                     try {
+                        SessionInitialization.init(socket.getInputStream());
                         MessageReader reader = new LoggingMessageReader(
                                 new BinaryMessageReader(
                                         new DataInputStream(socket.getInputStream())));
