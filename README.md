@@ -1,6 +1,6 @@
 # java-sound-server
 
-An experimental Audio-Output Server using the Java Sound API. Opens a port to which a client can connect and play audio.
+An experimental Audio-Output "Speaker Server" using the Java Sound API. Opens a port to which a client can connect and play audio.
 
 The protocol as well as the represention of messages are work in progress.
 
