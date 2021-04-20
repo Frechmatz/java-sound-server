@@ -17,9 +17,9 @@ The general procedure is as follows:
 * Server requests next chunk of frames from client
 * Client closes the connection by sending a close message
 
-# Clients
+## Clients
 
-## Common Lisp
+### Common Lisp
 
 [Client](https://github.com/Frechmatz/cl-java-sound-client)
 
