@@ -1,9 +1,9 @@
-package de.frechmatz.javasoundserver.api;
+package de.frechmatz.javasoundserver.server;
 
 import de.frechmatz.javasoundserver.message.FramesMessage;
 import de.frechmatz.javasoundserver.message.InitMessage;
 
-public interface ActionHandler {
+public interface IActionHandler {
     void ack() throws Exception;
     void nak() throws Exception;
     void init(InitMessage message) throws Exception;

@@ -18,7 +18,7 @@ public class Connection {
     }
 
     public void run() {
-        de.frechmatz.javasoundserver.api.ActionHandler actionHandler =
+        IActionHandler actionHandler =
                 new ActionHandler(messageWriter);
         ProtocolHandler protocolHandler = new ProtocolHandler(actionHandler);
         try {

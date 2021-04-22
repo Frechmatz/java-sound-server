@@ -8,7 +8,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.SourceDataLine;
 
 
-public class ActionHandler implements de.frechmatz.javasoundserver.api.ActionHandler {
+public class ActionHandler implements IActionHandler {
     private final MessageWriter messageWriter;
     private SourceDataLine sdl;
     private int sampleRate;
