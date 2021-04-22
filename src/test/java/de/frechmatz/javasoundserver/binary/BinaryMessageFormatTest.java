@@ -12,15 +12,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class BinaryMessageFormatTest {
 
-    private static final byte MESSAGE_TYPE_ACK = 1;
-    private static final byte MESSAGE_TYPE_NAK = 2;
-    private static final byte MESSAGE_TYPE_FRAMES = 3;
-    private static final byte MESSAGE_TYPE_GET_FRAMES = 4;
-    private static final byte MESSAGE_TYPE_INIT = 5;
-    private static final byte MESSAGE_TYPE_STOP = 6;
-    private static final byte MESSAGE_TYPE_START = 7;
-    private static final byte MESSAGE_TYPE_CLOSE = 8;
-
     private static final byte END_MARKER_1 = 127;
     private static final byte END_MARKER_2 = 126;
     private static final byte END_MARKER_3 = 125;
@@ -47,7 +38,9 @@ public class BinaryMessageFormatTest {
 
     @Test
     void testAckMessage() throws Exception {
-        final byte[] data = {0, MESSAGE_TYPE_ACK, END_MARKER_1, END_MARKER_2, END_MARKER_3};
+        final byte[] data = {
+                0, Constants.MESSAGE_TYPE_ACK, // 16 bit message type
+                END_MARKER_1, END_MARKER_2, END_MARKER_3};
         final DataInputStream is = new DataInputStream(new ByteArrayInputStream(data));
         Message msg = BinaryMessageFormat.read(is);
         assertTrue(msg instanceof AckMessage);
@@ -56,7 +49,9 @@ public class BinaryMessageFormatTest {
 
     @Test
     void testNakMessage() throws Exception {
-        final byte[] data = {0, MESSAGE_TYPE_NAK, END_MARKER_1, END_MARKER_2, END_MARKER_3};
+        final byte[] data = {
+                0, Constants.MESSAGE_TYPE_NAK, // 16 bit message type
+                END_MARKER_1, END_MARKER_2, END_MARKER_3};
         final DataInputStream is = new DataInputStream(new ByteArrayInputStream(data));
         Message msg = BinaryMessageFormat.read(is);
         assertTrue(msg instanceof NakMessage);
@@ -65,7 +60,9 @@ public class BinaryMessageFormatTest {
 
     @Test
     void testCloseMessage() throws Exception {
-        final byte[] data = {0, MESSAGE_TYPE_CLOSE, END_MARKER_1, END_MARKER_2, END_MARKER_3};
+        final byte[] data = {
+                0, Constants.MESSAGE_TYPE_CLOSE, // 16 bit message type
+                END_MARKER_1, END_MARKER_2, END_MARKER_3};
         final DataInputStream is = new DataInputStream(new ByteArrayInputStream(data));
         Message msg = BinaryMessageFormat.read(is);
         assertTrue(msg instanceof CloseMessage);
@@ -74,7 +71,9 @@ public class BinaryMessageFormatTest {
 
     @Test
     void testStartMessage() throws Exception {
-        final byte[] data = {0, MESSAGE_TYPE_START, END_MARKER_1, END_MARKER_2, END_MARKER_3};
+        final byte[] data = {
+                0, Constants.MESSAGE_TYPE_START, // 16 bit message type
+                END_MARKER_1, END_MARKER_2, END_MARKER_3};
         final DataInputStream is = new DataInputStream(new ByteArrayInputStream(data));
         Message msg = BinaryMessageFormat.read(is);
         assertTrue(msg instanceof StartMessage);
@@ -83,7 +82,9 @@ public class BinaryMessageFormatTest {
 
     @Test
     void testStopMessage() throws Exception {
-        final byte[] data = {0, MESSAGE_TYPE_STOP, END_MARKER_1, END_MARKER_2, END_MARKER_3};
+        final byte[] data = {
+                0, Constants.MESSAGE_TYPE_STOP, // 16 bit message type
+                END_MARKER_1, END_MARKER_2, END_MARKER_3};
         final DataInputStream is = new DataInputStream(new ByteArrayInputStream(data));
         Message msg = BinaryMessageFormat.read(is);
         assertTrue(msg instanceof StopMessage);
@@ -92,7 +93,9 @@ public class BinaryMessageFormatTest {
 
     @Test
     void testGetFramesMessage() throws Exception {
-        final byte[] data = {0, MESSAGE_TYPE_GET_FRAMES, 0,0,0,20, END_MARKER_1, END_MARKER_2, END_MARKER_3};
+        final byte[] data = {
+                0, Constants.MESSAGE_TYPE_GET_FRAMES, // 16 bit message type
+                0,0,0,20, END_MARKER_1, END_MARKER_2, END_MARKER_3};
         final DataInputStream is = new DataInputStream(new ByteArrayInputStream(data));
         Message msg = BinaryMessageFormat.read(is);
         assertTrue(msg instanceof GetFramesMessage);
@@ -104,7 +107,7 @@ public class BinaryMessageFormatTest {
     @Test
     void testInitMessage() throws Exception {
         final byte[] data = {
-                0, MESSAGE_TYPE_INIT,
+                0, Constants.MESSAGE_TYPE_INIT, // 16 bit message type
                 0,0,0,20, // Sample-Rate
                 0,4, // Channel-Count
                 0,0,0,50, // Buffer-Size
@@ -123,7 +126,7 @@ public class BinaryMessageFormatTest {
     @Test
     void testFramesMessage() throws Exception {
         final byte[] data = {
-                0, MESSAGE_TYPE_FRAMES,
+                0, Constants.MESSAGE_TYPE_FRAMES, // 16 bit message type
                 0,0,0,4, // Sample-Data-Count
                 0,1, // Sample 1
                 0,2, // Sample 2

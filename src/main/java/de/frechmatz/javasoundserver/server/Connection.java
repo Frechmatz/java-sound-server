@@ -3,7 +3,6 @@ package de.frechmatz.javasoundserver.server;
 import de.frechmatz.javasoundserver.api.Message;
 import de.frechmatz.javasoundserver.api.MessageReader;
 import de.frechmatz.javasoundserver.api.MessageWriter;
-import de.frechmatz.javasoundserver.logging.LoggingActionHandler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -19,8 +18,8 @@ public class Connection {
     }
 
     public void run() {
-        de.frechmatz.javasoundserver.api.ActionHandler actionHandler = new LoggingActionHandler(
-                new ActionHandler(messageWriter));
+        de.frechmatz.javasoundserver.api.ActionHandler actionHandler =
+                new ActionHandler(messageWriter);
         ProtocolHandler protocolHandler = new ProtocolHandler(actionHandler);
         logger.info(protocolHandler.toString());
         try {

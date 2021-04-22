@@ -4,7 +4,6 @@ import de.frechmatz.javasoundserver.api.Message;
 import de.frechmatz.javasoundserver.api.MessageReader;
 
 import java.io.DataInputStream;
-import java.io.IOException;
 
 public class BinaryMessageReader implements MessageReader {
     private final DataInputStream is;
@@ -14,7 +13,10 @@ public class BinaryMessageReader implements MessageReader {
     }
 
     @Override
-    public Message read() throws IOException {
-        return BinaryMessageFormat.read(is);
+    public Message read() throws Exception {
+        MessageMarker.readStart(is);
+        Message message = BinaryMessageFormat.read(is);
+        MessageMarker.readEnd(is);
+        return message;
     }
 }

@@ -5,8 +5,10 @@ import de.frechmatz.javasoundserver.api.MessageReader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.IOException;
-
+/**
+ * Logs messages successfully read from stream
+ * Does not log any errors.
+ */
 public class LoggingMessageReader implements MessageReader {
     private static final Logger logger = LogManager.getLogger(LoggingMessageReader.class);
 
@@ -17,14 +19,9 @@ public class LoggingMessageReader implements MessageReader {
     }
 
     @Override
-    public Message read() throws IOException {
-        try {
-            Message message = reader.read();
-            logger.info("Inbound: {}", message);
-            return message;
-        } catch(IOException error){
-            logger.error(error);
-            throw error;
-        }
+    public Message read() throws Exception {
+        Message message = reader.read();
+        logger.info("Inbound: {}", message);
+        return message;
     }
 }
