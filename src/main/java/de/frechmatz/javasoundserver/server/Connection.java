@@ -21,12 +21,11 @@ public class Connection {
         de.frechmatz.javasoundserver.api.ActionHandler actionHandler =
                 new ActionHandler(messageWriter);
         ProtocolHandler protocolHandler = new ProtocolHandler(actionHandler);
-        logger.info(protocolHandler.toString());
         try {
             while (true) {
+                logger.info(protocolHandler.toString());
                 Message message = messageReader.read();
                 message.dispatch(protocolHandler);
-                logger.info(protocolHandler.toString());
             }
         } catch(DoneException done) {
             // Nothing to do here. Protocol handler
