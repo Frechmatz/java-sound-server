@@ -7,7 +7,7 @@ import de.frechmatz.javasoundserver.message.*;
  * Implements the server side of the communication protocol between client and server.
  */
 public class ProtocolHandler implements MessageHandler {
-    private final IActionHandler actionHandler;
+    private final ActionHandler actionHandler;
 
     private enum State {
         AWAITING_INIT,
@@ -25,7 +25,7 @@ public class ProtocolHandler implements MessageHandler {
 
     private State state = State.AWAITING_INIT;
 
-    public ProtocolHandler(IActionHandler actionHandler) {
+    public ProtocolHandler(ActionHandler actionHandler) {
         this.actionHandler = actionHandler;
     }
 
