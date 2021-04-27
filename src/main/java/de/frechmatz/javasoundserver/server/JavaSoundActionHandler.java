@@ -12,6 +12,9 @@ public class JavaSoundActionHandler implements ActionHandler {
     private final MessageWriter messageWriter;
     private SourceDataLine sdl;
     private int sampleRate;
+    private int bufferSizeFrames;
+    private int channelCount;
+    private int sampleSizeWidth;
 
     public JavaSoundActionHandler(MessageWriter messageWriter) {
         this.messageWriter = messageWriter;
@@ -29,22 +32,30 @@ public class JavaSoundActionHandler implements ActionHandler {
 
     @Override
     public void init(InitMessage message) throws Exception {
-        AudioFormat af = new AudioFormat(
-                (float) message.getSampleRate(),
-                16,
-                message.getChannelCount(),
+        if(message.getBufferSizeFrames() <= 0)
+            throw new Exception("BufferSizeFrames must be greater than 0");
+        channelCount = message.getChannelCount();
+        sampleSizeWidth = 16;
+        sampleRate = message.getSampleRate();
+        final AudioFormat af = new AudioFormat(
+                (float) sampleRate,
+                sampleSizeWidth,
+                channelCount,
                 true,
                 true);
         sdl = AudioSystem.getSourceDataLine(af);
-        sdl.open();
-        sampleRate = message.getSampleRate();
+        sdl.open(af, message.getBufferSizeFrames() * channelCount * 2);
+        bufferSizeFrames = sdl.getBufferSize() / (channelCount * 2);
+    }
+
+    @Override
+    public void ackInit() throws Exception {
+        messageWriter.write(new AckInitMessage(this.bufferSizeFrames));
     }
 
     @Override
     public void requestFrames() throws Exception {
-        final int requestedChunkLengthSeconds = 1;
-        final int requestedFrameCount = sampleRate * requestedChunkLengthSeconds;
-        GetFramesMessage message = new GetFramesMessage(requestedFrameCount);
+        GetFramesMessage message = new GetFramesMessage();
         messageWriter.write(message);
     }
 

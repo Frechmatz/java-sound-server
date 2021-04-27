@@ -48,6 +48,13 @@ public class BinaryMessageWriter implements MessageWriter {
     }
 
     @Override
+    public void write(AckInitMessage message) throws Exception {
+        MessageMarker.writeStart(os);
+        BinaryMessageFormat.write(os, message);
+        MessageMarker.writeEnd(os);
+    }
+
+    @Override
     public void write(GetFramesMessage message) throws Exception {
         MessageMarker.writeStart(os);
         BinaryMessageFormat.write(os, message);

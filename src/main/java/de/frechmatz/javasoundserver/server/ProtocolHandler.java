@@ -53,6 +53,12 @@ public class ProtocolHandler implements MessageHandler {
     }
 
     @Override
+    public void onMessage(AckInitMessage message) throws Exception {
+        close();
+        throw new ProtocolException(message);
+    }
+
+    @Override
     public void onMessage(GetFramesMessage message) throws Exception {
         close();
         throw new ProtocolException(message);
@@ -94,7 +100,7 @@ public class ProtocolHandler implements MessageHandler {
             case AWAITING_INIT:
                 try {
                     actionHandler.init(message);
-                    actionHandler.ack();
+                    actionHandler.ackInit();
                     state = State.AWAITING_START;
                 } catch (Exception error) {
                     close();

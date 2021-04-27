@@ -61,11 +61,11 @@ final class BinaryMessageFormat {
         os.writeShort(channelCount);
     }
 
-    private static int readBufferSize(DataInputStream is) throws IOException {
+    private static int readBufferSizeFrames(DataInputStream is) throws IOException {
         return is.readInt();
     };
 
-    private static void writeBufferSize(DataOutputStream os, int bufferSize) throws IOException {
+    private static void writeBufferSizeFrames(DataOutputStream os, int bufferSize) throws IOException {
         os.writeInt(bufferSize);
     };
 
@@ -77,6 +77,7 @@ final class BinaryMessageFormat {
     private static final short MESSAGE_TYPE_STOP = 6;
     private static final short MESSAGE_TYPE_START = 7;
     private static final short MESSAGE_TYPE_CLOSE = 8;
+    private static final short MESSAGE_TYPE_INITACK = 9;
 
     public static void write(DataOutputStream os, AckMessage message) throws IOException {
         writeMessageType(os, MESSAGE_TYPE_ACK);
@@ -104,13 +105,18 @@ final class BinaryMessageFormat {
         writeMessageType(os, MESSAGE_TYPE_INIT);
         writeSampleRate(os, message.getSampleRate());
         writeChannelCount(os, message.getChannelCount());
-        writeBufferSize(os, message.getBufferSize());
+        writeBufferSizeFrames(os, message.getBufferSizeFrames());
+        os.flush();
+    }
+
+    public static void write(DataOutputStream os, AckInitMessage message) throws IOException {
+        writeMessageType(os, MESSAGE_TYPE_INITACK);
+        writeBufferSizeFrames(os, message.getBufferSizeFrames());
         os.flush();
     }
 
     public static void write(DataOutputStream os, GetFramesMessage message) throws IOException {
         writeMessageType(os, MESSAGE_TYPE_GET_FRAMES);
-        writeFrameCount(os, message.getFrameCount());
         os.flush();
     }
 
@@ -136,13 +142,15 @@ final class BinaryMessageFormat {
                 final byte[] samples = readSampleData(is, sampleCount);
                 return new FramesMessage(samples);
             case MESSAGE_TYPE_GET_FRAMES:
-                int frameCount = readFrameCount(is);
-                return new GetFramesMessage(frameCount);
+                return new GetFramesMessage();
             case MESSAGE_TYPE_INIT:
                 int sampleRate = readSampleRate(is);
                 short channelCount = readChannelCount(is);
-                int bufferSize = readBufferSize(is);
+                int bufferSize = readBufferSizeFrames(is);
                 return new InitMessage(sampleRate, channelCount, bufferSize);
+            case MESSAGE_TYPE_INITACK:
+                int bufferSizeFrames = readBufferSizeFrames(is);
+                return new AckInitMessage(bufferSizeFrames);
             case MESSAGE_TYPE_STOP:
                 return new StopMessage();
             case MESSAGE_TYPE_START:

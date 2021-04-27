@@ -4,14 +4,8 @@ import de.frechmatz.javasoundserver.api.MessageHandler;
 import de.frechmatz.javasoundserver.api.Message;
 
 public class GetFramesMessage implements Message {
-    private final int frameCount;
 
-    public GetFramesMessage(int frameCount) {
-        this.frameCount = frameCount;
-    }
-
-    public int getFrameCount() {
-        return frameCount;
+    public GetFramesMessage() {
     }
 
     @Override
@@ -21,8 +15,6 @@ public class GetFramesMessage implements Message {
 
     @Override
     public String toString() {
-        return "GetFramesMessage{" +
-                "frameCount=" + frameCount +
-                '}';
+        return "GetFramesMessage{}";
     }
 }

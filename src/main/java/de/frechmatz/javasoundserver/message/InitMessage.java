@@ -7,12 +7,12 @@ public class InitMessage implements Message {
 
     private final int sampleRate;
     private final short channelCount;
-    private final int bufferSize;
+    private final int bufferSizeFrames;
 
-    public InitMessage(int sampleRate, short channelCount, int bufferSize) {
+    public InitMessage(int sampleRate, short channelCount, int bufferSizeFrames) {
         this.sampleRate = sampleRate;
         this.channelCount = channelCount;
-        this.bufferSize = bufferSize;
+        this.bufferSizeFrames = bufferSizeFrames;
     }
 
     public int getSampleRate() {
@@ -23,8 +23,8 @@ public class InitMessage implements Message {
         return channelCount;
     }
 
-    public int getBufferSize() {
-        return bufferSize;
+    public int getBufferSizeFrames() {
+        return bufferSizeFrames;
     }
 
     @Override
@@ -37,7 +37,7 @@ public class InitMessage implements Message {
         return "InitMessage{" +
                 "sampleRate=" + sampleRate +
                 ", channelCount=" + channelCount +
-                ", bufferSize=" + bufferSize +
+                ", bufferSizeFrames=" + bufferSizeFrames +
                 '}';
     }
 }

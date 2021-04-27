@@ -7,6 +7,7 @@ public interface ActionHandler {
     void ack() throws Exception;
     void nak() throws Exception;
     void init(InitMessage message) throws Exception;
+    void ackInit() throws Exception;
     void requestFrames() throws Exception;
     void frames(FramesMessage message) throws Exception;
     void start() throws Exception;

@@ -55,6 +55,12 @@ public class LoggingMessageWriter implements MessageWriter {
     }
 
     @Override
+    public void write(AckInitMessage message) throws Exception {
+        writer.write(message);
+        logMessage(message);
+    }
+
+    @Override
     public void write(GetFramesMessage message) throws Exception {
         writer.write(message);
         logMessage(message);

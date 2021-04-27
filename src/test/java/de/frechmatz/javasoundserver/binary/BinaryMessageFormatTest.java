@@ -95,12 +95,10 @@ public class BinaryMessageFormatTest {
     void testGetFramesMessage() throws Exception {
         final byte[] data = {
                 0, Constants.MESSAGE_TYPE_GET_FRAMES, // 16 bit message type
-                0,0,0,20, END_MARKER_1, END_MARKER_2, END_MARKER_3};
+                END_MARKER_1, END_MARKER_2, END_MARKER_3};
         final DataInputStream is = new DataInputStream(new ByteArrayInputStream(data));
         Message msg = BinaryMessageFormat.read(is);
         assertTrue(msg instanceof GetFramesMessage);
-        GetFramesMessage getFramesMessage = (GetFramesMessage)msg;
-        assertEquals(20, getFramesMessage.getFrameCount());
         assertEndOfMessageMarker(is);
     }
 
@@ -119,7 +117,7 @@ public class BinaryMessageFormatTest {
         InitMessage initMessage = (InitMessage)msg;
         assertEquals(20, initMessage.getSampleRate());
         assertEquals(4, initMessage.getChannelCount());
-        assertEquals(50, initMessage.getBufferSize());
+        assertEquals(50, initMessage.getBufferSizeFrames());
         assertEndOfMessageMarker(is);
     }
 
