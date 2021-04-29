@@ -109,6 +109,7 @@ public class BinaryMessageFormatTest {
                 0,0,0,20, // Sample-Rate
                 0,4, // Channel-Count
                 0,0,0,50, // Buffer-Size
+                0,1, // Omit-Audio-Output
                 END_MARKER_1, END_MARKER_2, END_MARKER_3
         };
         final DataInputStream is = new DataInputStream(new ByteArrayInputStream(data));
@@ -118,6 +119,7 @@ public class BinaryMessageFormatTest {
         assertEquals(20, initMessage.getSampleRate());
         assertEquals(4, initMessage.getChannelCount());
         assertEquals(50, initMessage.getBufferSizeFrames());
+        assertEquals(1, initMessage.getOmitAudioOutput());
         assertEndOfMessageMarker(is);
     }
 

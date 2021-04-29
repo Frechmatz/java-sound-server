@@ -15,6 +15,7 @@ public class JavaSoundActionHandler implements ActionHandler {
     private int bufferSizeFrames;
     private int channelCount;
     private int sampleSizeWidth;
+    private boolean omitAudioOutput;
 
     public JavaSoundActionHandler(MessageWriter messageWriter) {
         this.messageWriter = messageWriter;
@@ -37,6 +38,7 @@ public class JavaSoundActionHandler implements ActionHandler {
         channelCount = message.getChannelCount();
         sampleSizeWidth = 16;
         sampleRate = message.getSampleRate();
+        omitAudioOutput = message.getOmitAudioOutput() == 1 ? true : false;
         final AudioFormat af = new AudioFormat(
                 (float) sampleRate,
                 sampleSizeWidth,
@@ -61,8 +63,10 @@ public class JavaSoundActionHandler implements ActionHandler {
 
     @Override
     public void frames(FramesMessage message) throws Exception {
-        // Blocking write of samples into Audio Device
-        sdl.write(message.getSampleData(), 0, message.getSampleData().length);
+        if(!omitAudioOutput) {
+            // Blocking write of samples into Audio Device
+            sdl.write(message.getSampleData(), 0, message.getSampleData().length);
+        }
     }
 
     @Override

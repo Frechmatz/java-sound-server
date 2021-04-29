@@ -13,33 +13,34 @@ final class BinaryMessageFormat {
 
     private static short readMessageType(DataInputStream is) throws IOException {
         return is.readShort();
-    };
+    }
 
     private static void writeMessageType(DataOutputStream os, short commandId) throws IOException {
         os.writeShort(commandId);
-    };
+    }
 
-    private static int readFrameCount(DataInputStream is) throws IOException {
-        return is.readInt();
-    };
+    private static short readOmitAudioOutput(DataInputStream is) throws IOException {
+        return is.readShort();
+    }
 
-    private static void writeFrameCount(DataOutputStream os, int frameCount) throws IOException {
-        os.writeInt(frameCount);
-    };
+    private static void writeOmitAudioOutput(DataOutputStream os, short omitAudioOutput)
+            throws IOException {
+        os.writeShort(omitAudioOutput);
+    }
 
     private static int readSampleDataLength(DataInputStream is) throws IOException {
         return is.readInt();
-    };
+    }
 
     private static void writeSampleDataLength(DataOutputStream os, int frameCount) throws IOException {
         os.writeInt(frameCount);
-    };
+    }
 
     private static byte[] readSampleData(DataInputStream is, int sampleDataLength) throws IOException {
         byte[] arr = new byte[sampleDataLength];
         is.readFully(arr);
         return arr;
-    };
+    }
 
     private static void writeShortSamples(DataOutputStream os, byte[] samples) throws IOException {
         throw new RuntimeException("writeShortSamples not implemented");
@@ -63,11 +64,11 @@ final class BinaryMessageFormat {
 
     private static int readBufferSizeFrames(DataInputStream is) throws IOException {
         return is.readInt();
-    };
+    }
 
     private static void writeBufferSizeFrames(DataOutputStream os, int bufferSize) throws IOException {
         os.writeInt(bufferSize);
-    };
+    }
 
     private static final short MESSAGE_TYPE_ACK = 1;
     private static final short MESSAGE_TYPE_NAK = 2;
@@ -106,6 +107,7 @@ final class BinaryMessageFormat {
         writeSampleRate(os, message.getSampleRate());
         writeChannelCount(os, message.getChannelCount());
         writeBufferSizeFrames(os, message.getBufferSizeFrames());
+        writeOmitAudioOutput(os, message.getOmitAudioOutput());
         os.flush();
     }
 
@@ -147,7 +149,8 @@ final class BinaryMessageFormat {
                 int sampleRate = readSampleRate(is);
                 short channelCount = readChannelCount(is);
                 int bufferSize = readBufferSizeFrames(is);
-                return new InitMessage(sampleRate, channelCount, bufferSize);
+                short omitAudioOutput = readOmitAudioOutput(is);
+                return new InitMessage(sampleRate, channelCount, bufferSize, omitAudioOutput);
             case MESSAGE_TYPE_INITACK:
                 int bufferSizeFrames = readBufferSizeFrames(is);
                 return new AckInitMessage(bufferSizeFrames);

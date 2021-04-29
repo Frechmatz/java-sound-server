@@ -8,11 +8,14 @@ public class InitMessage implements Message {
     private final int sampleRate;
     private final short channelCount;
     private final int bufferSizeFrames;
+    private final short omitAudioOutput;
 
-    public InitMessage(int sampleRate, short channelCount, int bufferSizeFrames) {
+    public InitMessage(int sampleRate, short channelCount, int bufferSizeFrames,
+                       short omitAudioOutput) {
         this.sampleRate = sampleRate;
         this.channelCount = channelCount;
         this.bufferSizeFrames = bufferSizeFrames;
+        this.omitAudioOutput = omitAudioOutput;
     }
 
     public int getSampleRate() {
@@ -32,12 +35,17 @@ public class InitMessage implements Message {
         handler.onMessage(this);
     }
 
+    public short getOmitAudioOutput() {
+        return omitAudioOutput;
+    }
+
     @Override
     public String toString() {
         return "InitMessage{" +
                 "sampleRate=" + sampleRate +
                 ", channelCount=" + channelCount +
                 ", bufferSizeFrames=" + bufferSizeFrames +
+                ", omitAudioOutput=" + omitAudioOutput +
                 '}';
     }
 }
