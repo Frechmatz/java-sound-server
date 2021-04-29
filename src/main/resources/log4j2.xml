@@ -11,5 +11,7 @@
         </Root>
         <Logger name="de.frechmatz.javasoundserver" level="INFO"></Logger>
         <Logger name="de.frechmatz.javasoundserver.server.ProtocolHandler" level="INFO"></Logger>
+        <Logger name="de.frechmatz.javasoundserver.logging.LoggingMessageReader" level="DEBUG"></Logger>
+        <Logger name="de.frechmatz.javasoundserver.logging.LoggingMessageWriter" level="DEBUG"></Logger>
     </Loggers>
 </Configuration>
