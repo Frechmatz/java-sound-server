@@ -6,13 +6,15 @@ import de.frechmatz.javasoundserver.api.Message;
 public class InitMessage implements Message {
 
     private final int sampleRate;
+    private final short sampleWidth;
     private final short channelCount;
     private final int bufferSizeFrames;
     private final short omitAudioOutput;
 
-    public InitMessage(int sampleRate, short channelCount, int bufferSizeFrames,
+    public InitMessage(int sampleRate, short sampleWidth, short channelCount, int bufferSizeFrames,
                        short omitAudioOutput) {
         this.sampleRate = sampleRate;
+        this.sampleWidth = sampleWidth;
         this.channelCount = channelCount;
         this.bufferSizeFrames = bufferSizeFrames;
         this.omitAudioOutput = omitAudioOutput;
@@ -39,10 +41,15 @@ public class InitMessage implements Message {
         return omitAudioOutput;
     }
 
+    public short getSampleWidth() {
+        return sampleWidth;
+    }
+
     @Override
     public String toString() {
         return "InitMessage{" +
                 "sampleRate=" + sampleRate +
+                ", sampleWidth=" + sampleWidth +
                 ", channelCount=" + channelCount +
                 ", bufferSizeFrames=" + bufferSizeFrames +
                 ", omitAudioOutput=" + omitAudioOutput +

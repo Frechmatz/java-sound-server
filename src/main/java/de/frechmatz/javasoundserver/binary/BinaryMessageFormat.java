@@ -54,6 +54,14 @@ final class BinaryMessageFormat {
         os.writeInt(sampleRate);
     }
 
+    private static short readSampleWidth(DataInputStream is) throws IOException {
+        return is.readShort();
+    }
+
+    private static void writeSampleWidth(DataOutputStream os, short sampleWidth) throws IOException {
+        os.writeShort(sampleWidth);
+    }
+
     private static short readChannelCount(DataInputStream is) throws IOException {
         return is.readShort();
     }
@@ -105,6 +113,7 @@ final class BinaryMessageFormat {
     public static void write(DataOutputStream os, InitMessage message) throws IOException {
         writeMessageType(os, MESSAGE_TYPE_INIT);
         writeSampleRate(os, message.getSampleRate());
+        writeSampleWidth(os, message.getSampleWidth());
         writeChannelCount(os, message.getChannelCount());
         writeBufferSizeFrames(os, message.getBufferSizeFrames());
         writeOmitAudioOutput(os, message.getOmitAudioOutput());
@@ -147,10 +156,11 @@ final class BinaryMessageFormat {
                 return new GetFramesMessage();
             case MESSAGE_TYPE_INIT:
                 int sampleRate = readSampleRate(is);
+                short sampleWidth = readSampleWidth(is);
                 short channelCount = readChannelCount(is);
                 int bufferSize = readBufferSizeFrames(is);
                 short omitAudioOutput = readOmitAudioOutput(is);
-                return new InitMessage(sampleRate, channelCount, bufferSize, omitAudioOutput);
+                return new InitMessage(sampleRate, sampleWidth, channelCount, bufferSize, omitAudioOutput);
             case MESSAGE_TYPE_INITACK:
                 int bufferSizeFrames = readBufferSizeFrames(is);
                 return new AckInitMessage(bufferSizeFrames);

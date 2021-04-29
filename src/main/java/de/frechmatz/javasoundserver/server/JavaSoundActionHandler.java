@@ -35,6 +35,10 @@ public class JavaSoundActionHandler implements ActionHandler {
     public void init(InitMessage message) throws Exception {
         if(message.getBufferSizeFrames() <= 0)
             throw new Exception("BufferSizeFrames must be greater than 0");
+        if(message.getSampleWidth() != 2)
+            throw new Exception(String.format(
+                    "SampleWidth of %s not supported.",
+                    message.getSampleWidth()));
         channelCount = message.getChannelCount();
         sampleSizeWidth = 16;
         sampleRate = message.getSampleRate();

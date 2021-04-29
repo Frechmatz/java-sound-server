@@ -107,6 +107,7 @@ public class BinaryMessageFormatTest {
         final byte[] data = {
                 0, Constants.MESSAGE_TYPE_INIT, // 16 bit message type
                 0,0,0,20, // Sample-Rate
+                0, 2, // Sample-Width
                 0,4, // Channel-Count
                 0,0,0,50, // Buffer-Size
                 0,1, // Omit-Audio-Output
@@ -117,6 +118,7 @@ public class BinaryMessageFormatTest {
         assertTrue(msg instanceof InitMessage);
         InitMessage initMessage = (InitMessage)msg;
         assertEquals(20, initMessage.getSampleRate());
+        assertEquals(2, initMessage.getSampleWidth());
         assertEquals(4, initMessage.getChannelCount());
         assertEquals(50, initMessage.getBufferSizeFrames());
         assertEquals(1, initMessage.getOmitAudioOutput());
