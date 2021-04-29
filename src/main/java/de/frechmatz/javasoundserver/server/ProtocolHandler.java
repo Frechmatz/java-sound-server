@@ -3,10 +3,15 @@ package de.frechmatz.javasoundserver.server;
 import de.frechmatz.javasoundserver.api.MessageHandler;
 import de.frechmatz.javasoundserver.message.*;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * Implements the server side of the communication protocol between client and server.
  */
 public class ProtocolHandler implements MessageHandler {
+    private static final Logger logger = LogManager.getLogger(ProtocolHandler.class);
+
     private final ActionHandler actionHandler;
 
     private enum State {
@@ -92,6 +97,7 @@ public class ProtocolHandler implements MessageHandler {
                 close();
                 throw new ProtocolException(message);
         }
+        logger.debug(toString());
     }
 
     @Override
@@ -111,6 +117,7 @@ public class ProtocolHandler implements MessageHandler {
                 close();
                 throw new ProtocolException(message);
         }
+        logger.debug(toString());
     }
 
     @Override
@@ -130,6 +137,7 @@ public class ProtocolHandler implements MessageHandler {
                 close();
                 throw new ProtocolException(message);
         }
+        logger.debug(toString());
     }
 
     @Override
@@ -148,5 +156,6 @@ public class ProtocolHandler implements MessageHandler {
                 close();
                 throw new ProtocolException(message);
         }
+        logger.debug(toString());
     }
 }

@@ -23,7 +23,6 @@ public class Connection {
         MessageHandler messageHandler = new ProtocolHandler(actionHandler);
         try {
             while (true) {
-                logger.info(messageHandler.toString());
                 Message message = messageReader.read();
                 message.dispatch(messageHandler);
             }

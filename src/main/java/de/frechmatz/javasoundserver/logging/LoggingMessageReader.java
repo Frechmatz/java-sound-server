@@ -21,7 +21,7 @@ public class LoggingMessageReader implements MessageReader {
     @Override
     public Message read() throws Exception {
         Message message = reader.read();
-        logger.info("Inbound: {}", message);
+        logger.debug("Inbound: {}", message);
         return message;
     }
 }

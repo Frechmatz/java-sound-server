@@ -21,7 +21,7 @@ public class LoggingMessageWriter implements MessageWriter {
     }
 
     private void logMessage(final Message message) {
-        logger.info("Outbound: {}", message);
+        logger.debug("Outbound: {}", message);
     }
 
     @Override
