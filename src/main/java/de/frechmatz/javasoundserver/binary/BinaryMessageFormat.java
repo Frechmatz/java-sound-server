@@ -7,74 +7,97 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * Holds a sample buffer that is shared across
+ * multiple instances of FramesMessage.
+ */
 final class BinaryMessageFormat {
-    private BinaryMessageFormat() {
+
+    private final DataInputStream is;
+    private final DataOutputStream os;
+    private byte[] sampleBuffer = new byte[0];
+
+    public BinaryMessageFormat(DataInputStream is, DataOutputStream os) {
+        this.is = is;
+        this.os = os;
     }
 
-    private static short readMessageType(DataInputStream is) throws IOException {
+    private short readMessageType() throws IOException {
         return is.readShort();
     }
 
-    private static void writeMessageType(DataOutputStream os, short commandId) throws IOException {
+    private void writeMessageType(short commandId) throws IOException {
         os.writeShort(commandId);
     }
 
-    private static short readOmitAudioOutput(DataInputStream is) throws IOException {
+    private short readOmitAudioOutput() throws IOException {
         return is.readShort();
     }
 
-    private static void writeOmitAudioOutput(DataOutputStream os, short omitAudioOutput)
+    private void writeOmitAudioOutput(short omitAudioOutput)
             throws IOException {
         os.writeShort(omitAudioOutput);
     }
 
-    private static int readSampleDataLength(DataInputStream is) throws IOException {
+    private int readSampleDataLength() throws IOException {
         return is.readInt();
     }
 
-    private static void writeSampleDataLength(DataOutputStream os, int frameCount) throws IOException {
+    private void writeSampleDataLength(int frameCount) throws IOException {
         os.writeInt(frameCount);
     }
 
-    private static byte[] readSampleData(DataInputStream is, int sampleDataLength) throws IOException {
-        byte[] arr = new byte[sampleDataLength];
+    /**
+     * Get a buffer into which samples are to be read.
+     * Buffer is shared across multiple read calls.
+     * @param sampleDataLength
+     * @return
+     */
+    private byte[] getSampleBuffer(int sampleDataLength) {
+        if (sampleBuffer.length < sampleDataLength)
+            sampleBuffer = new byte[sampleDataLength];
+        return sampleBuffer;
+    }
+
+    private byte[] readSampleData(int sampleDataLength) throws IOException {
+        byte[] arr = getSampleBuffer(sampleDataLength);
         is.readFully(arr);
         return arr;
     }
 
-    private static void writeShortSamples(DataOutputStream os, byte[] samples) throws IOException {
+    private void writeShortSamples(byte[] samples, int sampleDataLength) throws IOException {
         throw new RuntimeException("writeShortSamples not implemented");
     }
 
-    private static int readSampleRate(DataInputStream is) throws IOException {
+    private int readSampleRate() throws IOException {
         return is.readInt();
     }
 
-    private static void writeSampleRate(DataOutputStream os, int sampleRate) throws IOException {
+    private void writeSampleRate(int sampleRate) throws IOException {
         os.writeInt(sampleRate);
     }
 
-    private static short readSampleWidth(DataInputStream is) throws IOException {
+    private short readSampleWidth() throws IOException {
         return is.readShort();
     }
 
-    private static void writeSampleWidth(DataOutputStream os, short sampleWidth) throws IOException {
+    private void writeSampleWidth(short sampleWidth) throws IOException {
         os.writeShort(sampleWidth);
     }
 
-    private static short readChannelCount(DataInputStream is) throws IOException {
+    private short readChannelCount() throws IOException {
         return is.readShort();
     }
 
-    private static void writeChannelCount(DataOutputStream os, short channelCount) throws IOException {
+    private void writeChannelCount(short channelCount) throws IOException {
         os.writeShort(channelCount);
     }
 
-    private static int readBufferSizeFrames(DataInputStream is) throws IOException {
+    private int readBufferSizeFrames() throws IOException {
         return is.readInt();
     }
 
-    private static void writeBufferSizeFrames(DataOutputStream os, int bufferSize) throws IOException {
+    private void writeBufferSizeFrames(int bufferSize) throws IOException {
         os.writeInt(bufferSize);
     }
 
@@ -88,81 +111,82 @@ final class BinaryMessageFormat {
     private static final short MESSAGE_TYPE_CLOSE = 8;
     private static final short MESSAGE_TYPE_INITACK = 9;
 
-    public static void write(DataOutputStream os, AckMessage message) throws IOException {
-        writeMessageType(os, MESSAGE_TYPE_ACK);
+    public void write(AckMessage message) throws IOException {
+        writeMessageType(MESSAGE_TYPE_ACK);
         os.flush();
     }
 
-    public static void write(DataOutputStream os, NakMessage message) throws IOException {
-        writeMessageType(os, MESSAGE_TYPE_NAK);
+    public void write(NakMessage message) throws IOException {
+        writeMessageType(MESSAGE_TYPE_NAK);
         os.flush();
     }
 
-    public static void write(DataOutputStream os, CloseMessage message) throws IOException {
-        writeMessageType(os, MESSAGE_TYPE_CLOSE);
+    public void write(CloseMessage message) throws IOException {
+        writeMessageType(MESSAGE_TYPE_CLOSE);
         os.flush();
     }
 
-    public static void write(DataOutputStream os, FramesMessage message) throws IOException {
-        writeMessageType(os, MESSAGE_TYPE_FRAMES);
-        writeSampleDataLength(os, message.getSampleData().length);
-        writeShortSamples(os, message.getSampleData());
+    public void write(FramesMessage message) throws IOException {
+        writeMessageType(MESSAGE_TYPE_FRAMES);
+        writeSampleDataLength(message.getSampleDataLength());
+        writeShortSamples(message.getSampleData(), message.getSampleDataLength());
         os.flush();
     }
 
-    public static void write(DataOutputStream os, InitMessage message) throws IOException {
-        writeMessageType(os, MESSAGE_TYPE_INIT);
-        writeSampleRate(os, message.getSampleRate());
-        writeSampleWidth(os, message.getSampleWidth());
-        writeChannelCount(os, message.getChannelCount());
-        writeBufferSizeFrames(os, message.getBufferSizeFrames());
-        writeOmitAudioOutput(os, message.getOmitAudioOutput());
+    public void write(InitMessage message) throws IOException {
+        writeMessageType(MESSAGE_TYPE_INIT);
+        writeSampleRate(message.getSampleRate());
+        writeSampleWidth(message.getSampleWidth());
+        writeChannelCount(message.getChannelCount());
+        writeBufferSizeFrames(message.getBufferSizeFrames());
+        writeOmitAudioOutput(message.getOmitAudioOutput());
         os.flush();
     }
 
-    public static void write(DataOutputStream os, AckInitMessage message) throws IOException {
-        writeMessageType(os, MESSAGE_TYPE_INITACK);
-        writeBufferSizeFrames(os, message.getBufferSizeFrames());
+    public void write(AckInitMessage message) throws IOException {
+        writeMessageType(MESSAGE_TYPE_INITACK);
+        writeBufferSizeFrames(message.getBufferSizeFrames());
         os.flush();
     }
 
-    public static void write(DataOutputStream os, GetFramesMessage message) throws IOException {
-        writeMessageType(os, MESSAGE_TYPE_GET_FRAMES);
+    public void write(GetFramesMessage message) throws IOException {
+        writeMessageType(MESSAGE_TYPE_GET_FRAMES);
         os.flush();
     }
 
-    public static void write(DataOutputStream os, StartMessage message) throws IOException {
-        writeMessageType(os, MESSAGE_TYPE_START);
+    public void write(StartMessage message) throws IOException {
+        writeMessageType(MESSAGE_TYPE_START);
         os.flush();
     }
 
-    public static void write(DataOutputStream os, StopMessage message) throws IOException {
-        writeMessageType(os, MESSAGE_TYPE_STOP);
+    public void write(StopMessage message) throws IOException {
+        writeMessageType(MESSAGE_TYPE_STOP);
         os.flush();
     }
 
-    public static Message read(DataInputStream is) throws IOException {
-        final short messageType = readMessageType(is);
+    public Message read() throws IOException {
+        final short messageType = readMessageType();
         switch(messageType) {
             case MESSAGE_TYPE_ACK:
                 return new AckMessage();
             case MESSAGE_TYPE_NAK:
                 return new NakMessage();
             case MESSAGE_TYPE_FRAMES:
-                final int sampleCount = readSampleDataLength(is);
-                final byte[] samples = readSampleData(is, sampleCount);
-                return new FramesMessage(samples);
+                final int sampleDataLength = readSampleDataLength();
+                final byte[] samples = readSampleData(sampleDataLength);
+                return new FramesMessage(sampleDataLength, samples);
             case MESSAGE_TYPE_GET_FRAMES:
                 return new GetFramesMessage();
             case MESSAGE_TYPE_INIT:
-                int sampleRate = readSampleRate(is);
-                short sampleWidth = readSampleWidth(is);
-                short channelCount = readChannelCount(is);
-                int bufferSize = readBufferSizeFrames(is);
-                short omitAudioOutput = readOmitAudioOutput(is);
-                return new InitMessage(sampleRate, sampleWidth, channelCount, bufferSize, omitAudioOutput);
+                int sampleRate = readSampleRate();
+                short sampleWidth = readSampleWidth();
+                short channelCount = readChannelCount();
+                int bufferSize = readBufferSizeFrames();
+                short omitAudioOutput = readOmitAudioOutput();
+                return new InitMessage(sampleRate, sampleWidth,
+                        channelCount, bufferSize, omitAudioOutput);
             case MESSAGE_TYPE_INITACK:
-                int bufferSizeFrames = readBufferSizeFrames(is);
+                int bufferSizeFrames = readBufferSizeFrames();
                 return new AckInitMessage(bufferSizeFrames);
             case MESSAGE_TYPE_STOP:
                 return new StopMessage();

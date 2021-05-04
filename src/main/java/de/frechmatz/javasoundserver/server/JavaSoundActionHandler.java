@@ -69,7 +69,7 @@ public class JavaSoundActionHandler implements ActionHandler {
     public void frames(FramesMessage message) throws Exception {
         if(!omitAudioOutput) {
             // Blocking write of samples into Audio Device
-            sdl.write(message.getSampleData(), 0, message.getSampleData().length);
+            sdl.write(message.getSampleData(), 0, message.getSampleDataLength());
         }
     }
 

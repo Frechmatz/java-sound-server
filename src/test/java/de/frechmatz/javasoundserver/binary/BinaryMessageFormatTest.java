@@ -26,14 +26,16 @@ public class BinaryMessageFormatTest {
     void testInvalidMessageId() {
         final byte[] data = {127, 127};
         final DataInputStream is = new DataInputStream(new ByteArrayInputStream(data));
-        assertThrows(Exception.class, () -> BinaryMessageFormat.read(is));
+        final BinaryMessageFormat reader = new BinaryMessageFormat(is, null);
+        assertThrows(Exception.class, () -> reader.read());
     }
 
     @Test
     void testEOF() {
         final byte[] data = {};
         final DataInputStream is = new DataInputStream(new ByteArrayInputStream(data));
-        assertThrows(IOException.class, () -> BinaryMessageFormat.read(is));
+        final BinaryMessageFormat reader = new BinaryMessageFormat(is, null);
+        assertThrows(IOException.class, () -> reader.read());
     }
 
     @Test
@@ -42,7 +44,8 @@ public class BinaryMessageFormatTest {
                 0, Constants.MESSAGE_TYPE_ACK, // 16 bit message type
                 END_MARKER_1, END_MARKER_2, END_MARKER_3};
         final DataInputStream is = new DataInputStream(new ByteArrayInputStream(data));
-        Message msg = BinaryMessageFormat.read(is);
+        final BinaryMessageFormat reader = new BinaryMessageFormat(is, null);
+        Message msg = reader.read();
         assertTrue(msg instanceof AckMessage);
         assertEndOfMessageMarker(is);
     }
@@ -53,7 +56,8 @@ public class BinaryMessageFormatTest {
                 0, Constants.MESSAGE_TYPE_NAK, // 16 bit message type
                 END_MARKER_1, END_MARKER_2, END_MARKER_3};
         final DataInputStream is = new DataInputStream(new ByteArrayInputStream(data));
-        Message msg = BinaryMessageFormat.read(is);
+        final BinaryMessageFormat reader = new BinaryMessageFormat(is, null);
+        Message msg = reader.read();
         assertTrue(msg instanceof NakMessage);
         assertEndOfMessageMarker(is);
     }
@@ -64,7 +68,8 @@ public class BinaryMessageFormatTest {
                 0, Constants.MESSAGE_TYPE_CLOSE, // 16 bit message type
                 END_MARKER_1, END_MARKER_2, END_MARKER_3};
         final DataInputStream is = new DataInputStream(new ByteArrayInputStream(data));
-        Message msg = BinaryMessageFormat.read(is);
+        final BinaryMessageFormat reader = new BinaryMessageFormat(is, null);
+        Message msg = reader.read();
         assertTrue(msg instanceof CloseMessage);
         assertEndOfMessageMarker(is);
     }
@@ -75,7 +80,8 @@ public class BinaryMessageFormatTest {
                 0, Constants.MESSAGE_TYPE_START, // 16 bit message type
                 END_MARKER_1, END_MARKER_2, END_MARKER_3};
         final DataInputStream is = new DataInputStream(new ByteArrayInputStream(data));
-        Message msg = BinaryMessageFormat.read(is);
+        final BinaryMessageFormat reader = new BinaryMessageFormat(is, null);
+        Message msg = reader.read();
         assertTrue(msg instanceof StartMessage);
         assertEndOfMessageMarker(is);
     }
@@ -86,7 +92,8 @@ public class BinaryMessageFormatTest {
                 0, Constants.MESSAGE_TYPE_STOP, // 16 bit message type
                 END_MARKER_1, END_MARKER_2, END_MARKER_3};
         final DataInputStream is = new DataInputStream(new ByteArrayInputStream(data));
-        Message msg = BinaryMessageFormat.read(is);
+        final BinaryMessageFormat reader = new BinaryMessageFormat(is, null);
+        Message msg = reader.read();
         assertTrue(msg instanceof StopMessage);
         assertEndOfMessageMarker(is);
     }
@@ -97,7 +104,8 @@ public class BinaryMessageFormatTest {
                 0, Constants.MESSAGE_TYPE_GET_FRAMES, // 16 bit message type
                 END_MARKER_1, END_MARKER_2, END_MARKER_3};
         final DataInputStream is = new DataInputStream(new ByteArrayInputStream(data));
-        Message msg = BinaryMessageFormat.read(is);
+        final BinaryMessageFormat reader = new BinaryMessageFormat(is, null);
+        Message msg = reader.read();
         assertTrue(msg instanceof GetFramesMessage);
         assertEndOfMessageMarker(is);
     }
@@ -114,7 +122,8 @@ public class BinaryMessageFormatTest {
                 END_MARKER_1, END_MARKER_2, END_MARKER_3
         };
         final DataInputStream is = new DataInputStream(new ByteArrayInputStream(data));
-        Message msg = BinaryMessageFormat.read(is);
+        final BinaryMessageFormat reader = new BinaryMessageFormat(is, null);
+        Message msg = reader.read();
         assertTrue(msg instanceof InitMessage);
         InitMessage initMessage = (InitMessage)msg;
         assertEquals(20, initMessage.getSampleRate());
@@ -135,7 +144,8 @@ public class BinaryMessageFormatTest {
                 END_MARKER_1, END_MARKER_2, END_MARKER_3
         };
         final DataInputStream is = new DataInputStream(new ByteArrayInputStream(data));
-        Message msg = BinaryMessageFormat.read(is);
+        final BinaryMessageFormat reader = new BinaryMessageFormat(is, null);
+        Message msg = reader.read();
         assertTrue(msg instanceof FramesMessage);
         FramesMessage framesMessage = (FramesMessage)msg;
         assertEquals(4, framesMessage.getSampleData().length);
