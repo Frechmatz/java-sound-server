@@ -61,7 +61,7 @@ final class BinaryMessageFormat {
 
     private byte[] readSampleData(int sampleDataLength) throws IOException {
         byte[] arr = getSampleBuffer(sampleDataLength);
-        is.readFully(arr);
+        is.readFully(arr, 0, sampleDataLength);
         return arr;
     }
 
