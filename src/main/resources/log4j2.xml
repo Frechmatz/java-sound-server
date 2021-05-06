@@ -9,9 +9,9 @@
         <Root level="ERROR">
             <AppenderRef ref="Console"/>
         </Root>
-        <Logger name="de.frechmatz.javasoundserver" level="INFO"></Logger>
-        <Logger name="de.frechmatz.javasoundserver.server.ProtocolHandler" level="INFO"></Logger>
-        <Logger name="de.frechmatz.javasoundserver.logging.LoggingMessageReader" level="INFO"></Logger>
-        <Logger name="de.frechmatz.javasoundserver.logging.LoggingMessageWriter" level="INFO"></Logger>
+        <Logger name="de.frechmatz.javasoundserver" level="INFO"/>
+        <Logger name="de.frechmatz.javasoundserver.server.ProtocolHandler" level="INFO"/>
+        <Logger name="de.frechmatz.javasoundserver.logging.LoggingMessageReader" level="INFO"/>
+        <Logger name="de.frechmatz.javasoundserver.logging.LoggingMessageWriter" level="INFO"/>
     </Loggers>
 </Configuration>
