@@ -30,6 +30,8 @@ public class JavaSoundActionHandler implements ActionHandler {
 
     @Override
     public void init(InitMessage message) throws Exception {
+        // SDL accepts a buffer size of 0
+        // So for now let us validate here
         if(message.getBufferSizeFrames() <= 0)
             throw new Exception("BufferSizeFrames must be greater than 0");
         int channelCount = message.getChannelCount();
