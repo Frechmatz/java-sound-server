@@ -11,10 +11,7 @@ import javax.sound.sampled.SourceDataLine;
 public class JavaSoundActionHandler implements ActionHandler {
     private final MessageWriter messageWriter;
     private SourceDataLine sdl;
-    private int sampleRate;
     private int bufferSizeFrames;
-    private int channelCount;
-    private int sampleSizeWidth;
     private boolean omitAudioOutput;
 
     public JavaSoundActionHandler(MessageWriter messageWriter) {
@@ -35,17 +32,11 @@ public class JavaSoundActionHandler implements ActionHandler {
     public void init(InitMessage message) throws Exception {
         if(message.getBufferSizeFrames() <= 0)
             throw new Exception("BufferSizeFrames must be greater than 0");
-        if(message.getSampleWidth() != 2)
-            throw new Exception(String.format(
-                    "SampleWidth of %s not supported.",
-                    message.getSampleWidth()));
-        channelCount = message.getChannelCount();
-        sampleSizeWidth = 16;
-        sampleRate = message.getSampleRate();
-        omitAudioOutput = message.getOmitAudioOutput() == 1 ? true : false;
+        int channelCount = message.getChannelCount();
+        omitAudioOutput = message.getOmitAudioOutput() == 1;
         final AudioFormat af = new AudioFormat(
-                (float) sampleRate,
-                sampleSizeWidth,
+                (float) message.getSampleRate(),
+                message.getSampleWidth() * 8,
                 channelCount,
                 true,
                 true);
