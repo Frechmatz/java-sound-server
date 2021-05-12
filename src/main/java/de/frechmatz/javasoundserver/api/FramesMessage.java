@@ -1,7 +1,4 @@
-package de.frechmatz.javasoundserver.message;
-
-import de.frechmatz.javasoundserver.api.Message;
-import de.frechmatz.javasoundserver.api.MessageHandler;
+package de.frechmatz.javasoundserver.api;
 
 public class FramesMessage implements Message {
     private final byte[] sampleData;

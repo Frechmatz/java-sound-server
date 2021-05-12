@@ -1,7 +1,5 @@
 package de.frechmatz.javasoundserver.api;
 
-import de.frechmatz.javasoundserver.message.*;
-
 public interface MessageWriter {
     void write(CloseMessage message) throws Exception;
     void write(FramesMessage message) throws Exception;

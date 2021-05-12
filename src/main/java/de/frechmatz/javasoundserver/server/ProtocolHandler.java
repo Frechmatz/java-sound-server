@@ -1,7 +1,6 @@
 package de.frechmatz.javasoundserver.server;
 
-import de.frechmatz.javasoundserver.api.MessageHandler;
-import de.frechmatz.javasoundserver.message.*;
+import de.frechmatz.javasoundserver.api.*;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

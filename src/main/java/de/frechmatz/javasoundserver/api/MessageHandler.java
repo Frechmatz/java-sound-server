@@ -1,7 +1,5 @@
 package de.frechmatz.javasoundserver.api;
 
-import de.frechmatz.javasoundserver.message.*;
-
 public interface MessageHandler {
     void onMessage(CloseMessage message) throws Exception;
     void onMessage(FramesMessage message) throws Exception;

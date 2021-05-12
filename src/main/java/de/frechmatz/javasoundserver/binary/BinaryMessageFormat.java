@@ -1,7 +1,6 @@
 package de.frechmatz.javasoundserver.binary;
 
-import de.frechmatz.javasoundserver.api.Message;
-import de.frechmatz.javasoundserver.message.*;
+import de.frechmatz.javasoundserver.api.*;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

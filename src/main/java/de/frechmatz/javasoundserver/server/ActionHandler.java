@@ -1,7 +1,7 @@
 package de.frechmatz.javasoundserver.server;
 
-import de.frechmatz.javasoundserver.message.FramesMessage;
-import de.frechmatz.javasoundserver.message.InitMessage;
+import de.frechmatz.javasoundserver.api.FramesMessage;
+import de.frechmatz.javasoundserver.api.InitMessage;
 
 public interface ActionHandler {
     void init(InitMessage message) throws Exception;

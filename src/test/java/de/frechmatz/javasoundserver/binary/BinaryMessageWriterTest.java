@@ -1,6 +1,6 @@
 package de.frechmatz.javasoundserver.binary;
 
-import de.frechmatz.javasoundserver.message.CloseMessage;
+import de.frechmatz.javasoundserver.api.CloseMessage;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;

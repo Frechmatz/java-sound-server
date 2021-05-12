@@ -1,7 +1,4 @@
-package de.frechmatz.javasoundserver.message;
-
-import de.frechmatz.javasoundserver.api.MessageHandler;
-import de.frechmatz.javasoundserver.api.Message;
+package de.frechmatz.javasoundserver.api;
 
 public class StopMessage implements Message {
 

@@ -1,7 +1,6 @@
 package de.frechmatz.javasoundserver.server;
 
-import de.frechmatz.javasoundserver.api.MessageWriter;
-import de.frechmatz.javasoundserver.message.*;
+import de.frechmatz.javasoundserver.api.*;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
