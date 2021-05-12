@@ -42,7 +42,9 @@ public class Application {
                     Socket socket = serverSocket.accept();
                     logger.info("Connection established");
                     try {
-                        SessionInitialization.init(socket.getInputStream());
+                        final Session session = SessionFactory.instantiate(socket.getInputStream());
+                        // TODO Check session version numbers
+                        logger.info("Accepted " + session);
                         MessageReader reader = new LoggingMessageReader(
                                 new BinaryMessageReader(
                                         new DataInputStream(socket.getInputStream())));
