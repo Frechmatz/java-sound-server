@@ -25,18 +25,6 @@ public class LoggingMessageWriter implements MessageWriter {
     }
 
     @Override
-    public void write(AckMessage message) throws Exception {
-        writer.write(message);
-        logMessage(message);
-    }
-
-    @Override
-    public void write(NakMessage message) throws Exception {
-        writer.write(message);
-        logMessage(message);
-    }
-
-    @Override
     public void write(CloseMessage message) throws Exception {
         writer.write(message);
         logMessage(message);

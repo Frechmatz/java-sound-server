@@ -19,16 +19,6 @@ public class JavaSoundActionHandler implements ActionHandler {
     }
 
     @Override
-    public void ack() throws Exception {
-        messageWriter.write(new AckMessage());
-    }
-
-    @Override
-    public void nak() throws Exception {
-        messageWriter.write(new NakMessage());
-    }
-
-    @Override
     public void init(InitMessage message) throws Exception {
         // SDL accepts a buffer size of 0
         // So for now let us validate here

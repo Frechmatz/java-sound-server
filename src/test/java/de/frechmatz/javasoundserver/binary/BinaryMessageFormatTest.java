@@ -39,30 +39,6 @@ public class BinaryMessageFormatTest {
     }
 
     @Test
-    void testAckMessage() throws Exception {
-        final byte[] data = {
-                0, Constants.MESSAGE_TYPE_ACK, // 16 bit message type
-                END_MARKER_1, END_MARKER_2, END_MARKER_3};
-        final DataInputStream is = new DataInputStream(new ByteArrayInputStream(data));
-        final BinaryMessageFormat reader = new BinaryMessageFormat(is, null);
-        Message msg = reader.read();
-        assertTrue(msg instanceof AckMessage);
-        assertEndOfMessageMarker(is);
-    }
-
-    @Test
-    void testNakMessage() throws Exception {
-        final byte[] data = {
-                0, Constants.MESSAGE_TYPE_NAK, // 16 bit message type
-                END_MARKER_1, END_MARKER_2, END_MARKER_3};
-        final DataInputStream is = new DataInputStream(new ByteArrayInputStream(data));
-        final BinaryMessageFormat reader = new BinaryMessageFormat(is, null);
-        Message msg = reader.read();
-        assertTrue(msg instanceof NakMessage);
-        assertEndOfMessageMarker(is);
-    }
-
-    @Test
     void testCloseMessage() throws Exception {
         final byte[] data = {
                 0, Constants.MESSAGE_TYPE_CLOSE, // 16 bit message type

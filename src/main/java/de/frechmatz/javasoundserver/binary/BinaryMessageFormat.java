@@ -101,8 +101,6 @@ final class BinaryMessageFormat {
         os.writeInt(bufferSize);
     }
 
-    private static final short MESSAGE_TYPE_ACK = 1;
-    private static final short MESSAGE_TYPE_NAK = 2;
     private static final short MESSAGE_TYPE_FRAMES = 3;
     private static final short MESSAGE_TYPE_GET_FRAMES = 4;
     private static final short MESSAGE_TYPE_INIT = 5;
@@ -110,16 +108,6 @@ final class BinaryMessageFormat {
     private static final short MESSAGE_TYPE_START = 7;
     private static final short MESSAGE_TYPE_CLOSE = 8;
     private static final short MESSAGE_TYPE_INITACK = 9;
-
-    public void write(AckMessage message) throws IOException {
-        writeMessageType(MESSAGE_TYPE_ACK);
-        os.flush();
-    }
-
-    public void write(NakMessage message) throws IOException {
-        writeMessageType(MESSAGE_TYPE_NAK);
-        os.flush();
-    }
 
     public void write(CloseMessage message) throws IOException {
         writeMessageType(MESSAGE_TYPE_CLOSE);
@@ -167,10 +155,6 @@ final class BinaryMessageFormat {
     public Message read() throws IOException {
         final short messageType = readMessageType();
         switch(messageType) {
-            case MESSAGE_TYPE_ACK:
-                return new AckMessage();
-            case MESSAGE_TYPE_NAK:
-                return new NakMessage();
             case MESSAGE_TYPE_FRAMES:
                 final int sampleDataLength = readSampleDataLength();
                 final byte[] samples = readSampleData(sampleDataLength);

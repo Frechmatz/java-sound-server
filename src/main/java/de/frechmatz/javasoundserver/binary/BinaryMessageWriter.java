@@ -15,20 +15,6 @@ public class BinaryMessageWriter implements MessageWriter {
     }
 
     @Override
-    public void write(AckMessage message) throws Exception {
-        MessageMarker.writeStart(os);
-        writer.write(message);
-        MessageMarker.writeEnd(os);
-    }
-
-    @Override
-    public void write(NakMessage message) throws Exception {
-        MessageMarker.writeStart(os);
-        writer.write(message);
-        MessageMarker.writeEnd(os);
-    }
-
-    @Override
     public void write(CloseMessage message) throws Exception {
         MessageMarker.writeStart(os);
         writer.write(message);

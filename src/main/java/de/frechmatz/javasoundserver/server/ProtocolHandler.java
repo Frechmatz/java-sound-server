@@ -46,18 +46,6 @@ public class ProtocolHandler implements MessageHandler {
     }
 
     @Override
-    public void onMessage(AckMessage message) throws Exception {
-        close();
-        throw new ProtocolException(message);
-    }
-
-    @Override
-    public void onMessage(NakMessage message) throws Exception {
-        close();
-        throw new ProtocolException(message);
-    }
-
-    @Override
     public void onMessage(AckInitMessage message) throws Exception {
         close();
         throw new ProtocolException(message);

@@ -4,8 +4,6 @@ import de.frechmatz.javasoundserver.message.FramesMessage;
 import de.frechmatz.javasoundserver.message.InitMessage;
 
 public interface ActionHandler {
-    void ack() throws Exception;
-    void nak() throws Exception;
     void init(InitMessage message) throws Exception;
     void ackInit() throws Exception;
     void requestFrames() throws Exception;
