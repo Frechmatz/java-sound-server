@@ -107,7 +107,7 @@ public class ProtocolHandler implements MessageHandler {
                 try {
                     actionHandler.init(message);
                     actionHandler.ackInit();
-                    logger.info("Accepted Init message");
+                    logger.info("Accepted " + message);
                     state = State.AWAITING_START;
                 } catch (Exception error) {
                     close();
