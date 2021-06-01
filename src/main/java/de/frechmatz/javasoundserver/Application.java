@@ -43,8 +43,11 @@ public class Application {
                     logger.info("Connection established");
                     try {
                         final Session session = SessionFactory.instantiate(socket.getInputStream());
-                        // TODO Check session version numbers
+                        if(!(session.getMajorVersion() == 1 && session.getMinorVersion() == 0))
+                            throw new Exception("Version not supported");
                         logger.info("Accepted " + session);
+                        socket.getOutputStream().write(0); // Accepted
+                        socket.getOutputStream().flush();
                         MessageReader reader = new LoggingMessageReader(
                                 new BinaryMessageReader(
                                         new DataInputStream(socket.getInputStream())));
