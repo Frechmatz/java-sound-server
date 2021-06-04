@@ -81,7 +81,7 @@ Sent by server as response to an `Init` message to acknowledge that audio output
 Sent by server to request audio data. In general the client is supposed to send
 back a `Frames` message providing an amount of samples according to `<BufferSizeFrames>`
 as returned by `<AckInit>`.
-The client may send back a less number of frames, when for example an underlying data source
+The client may send back a less number of frames, because for example an underlying data source
 has been exhausted.
 The client may also send back a `Stop` message to pause audio output or a `Close` message
 to close the connection.
