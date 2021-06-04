@@ -79,7 +79,7 @@ Sent by server as response to an `Init` message to acknowledge that audio output
 ## GetFrames
 
 Sent by server to request audio data. Client is supposed to send back a `Frames` message providing audio data according to `<BufferSizeFrames>`
-returned by `<AckInit>`. Client can send back any number of frames, can pause audio output via `Stop` or can close the connection via `Close`.
+returned by `<AckInit>`. Client can send back any number of frames via `Frames`, can pause audio output via `Stop` or can close the connection via `Close`.
 
 * `<MessageType>`: 4
 
