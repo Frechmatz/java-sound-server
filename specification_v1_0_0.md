@@ -16,7 +16,7 @@ Initial version
 * Server initializes Java Sound audio output and sends an `AckInit` message
 * Client sends a `Start` message
 * Server sends a `GetFrames` message
-* Client renders frames and sends a `Frames` message
+* Client sends a `Frames` message
 * Server pushes the frames into the audio device (blocks until device has accepted the samples)
 * Server sends a `GetFrames` message
 * Client sends a `Frames` or a `Stop` or a `Close` message
