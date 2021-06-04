@@ -10,3 +10,8 @@ Java-Sound-Server is an audio output "Speaker" server that uses the Java Sound A
 
 [Common Lisp](https://github.com/Frechmatz/cl-java-sound-client)
 
+## Todos
+
+* How to start server
+* Define port via command-line arg
+
