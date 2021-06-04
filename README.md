@@ -4,7 +4,7 @@ Java-Sound-Server is an audio output "Speaker" server that uses the Java Sound A
 
 ## Specification
 
-[[v1_0_0](https://raw.github.com/frechmatz/java-sound-server/master/specification_v1_0_0.md)]
+[v1_0_0](specification_v1_0_0.md)
 
 ## Clients
 
