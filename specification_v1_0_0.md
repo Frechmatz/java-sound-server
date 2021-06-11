@@ -23,8 +23,8 @@ Initial version
 
 # Session initialization
 
-After a connection has been established, a session initialization data block must be sent
-by the client to let the server know about the message format and message exchange protocol
+After the socket connection has been established, the client must sent a session initialization
+data block to let the server know about the message format and message exchange protocol
 that will be used.
 
 The session initialization data block has the following format:
