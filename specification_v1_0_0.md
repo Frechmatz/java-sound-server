@@ -90,11 +90,11 @@ to close the connection.
 
 ## Frames
 
-Sent by client as response to a `GetFrames` message to provide audio data.
+Sent by client as response to a `GetFrames` message in order to provide audio data.
 
 * `<MessageType>`: 3
 * `<SampleDataLength>`: Length in bytes of following audio data
-* `{ <16BitSample>{ChannelCount} }`: Sequence of frames. A frame consists of a sequence of samples, where for each channel a sample is provided
+* `{ <16BitSample>{ChannelCount} }`: Sequence of frames. A frame consists of a sequence of samples, where for each channel one sample is provided
 
 ## Start
 
