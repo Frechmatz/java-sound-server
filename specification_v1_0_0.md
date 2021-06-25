@@ -10,7 +10,7 @@ Initial version
 
 * Client establishes a socket connection with server
 * Client sends session initialization data
-* Server reads session initialization data
+* Server reads session initialization data and may close the connection
 * Server starts message loop
 * Client sends an `Init` message
 * Server initializes Java Sound audio output and sends an `AckInit` message
