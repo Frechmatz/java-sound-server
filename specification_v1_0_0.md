@@ -17,7 +17,7 @@ Initial version
 * Client sends a `Start` message
 * Server sends a `GetFrames` message
 * Client sends a `Frames` message
-* Server pushes the frames into the audio device. Blocks until device has accepted
+* Server pushes the frames to the audio device. Blocks until device has accepted
 * Server sends a `GetFrames` message
 * Client sends a `Frames` or a `Stop` or a `Close` message
 
