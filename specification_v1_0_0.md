@@ -96,7 +96,7 @@ Sent by client as response to a `GetFrames` message in order to provide audio da
 
 * `<MessageType>`: 3
 * `<SampleDataLength>`: Length in bytes of following audio data
-* `{ <16BitSample>{ChannelCount} }`: Sequence of frames. A frame consists of a sequence of samples, where for each channel one sample is provided
+* `{ <16BitSample>{ChannelCount} }`: A sequence of frames. A frame consists of a sequence of samples, where for each channel one sample is provided
 
 ## Start
 
