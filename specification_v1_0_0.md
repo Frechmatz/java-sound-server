@@ -6,7 +6,7 @@
 
 Initial version
 
-# The general procedure
+# The general flow
 
 * Client establishes a socket connection with server
 * Client sends session initialization data
