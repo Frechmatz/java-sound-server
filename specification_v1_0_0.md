@@ -47,6 +47,8 @@ message loop. Otherwise the server closes the connection.
 
 # Message property types
 
+Throughout the message payload definitions the following property types are used: 
+
 * `<MessageType>`: 2 Byte signed
 * `<SampleRate>`: 4 Byte signed
 * `<SampleWidth>`: 2 Byte signed
