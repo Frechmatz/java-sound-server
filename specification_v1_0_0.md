@@ -68,7 +68,7 @@ Sent by client to initialize audio output. Server sends back an `AckInit` messag
 * `<SampleWidth>`: Representation of a sample. 2 == `<16BitSample>`. Must be 2
 * `<ChannelCount>`: Number of audio channels, for example 2
 * `<BufferSizeFrames>`: Preferred buffer size of audio device. Might be overwritten by the server
-* `<OmitAudioOutput>`: 1 == No audio output (can be used to measure throughput) 
+* `<OmitAudioOutput>`: 1 == `<Frames>` messages will not pushed to the audio device 
 
 ## AckInit
 
