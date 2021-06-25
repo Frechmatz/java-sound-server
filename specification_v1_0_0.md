@@ -43,20 +43,19 @@ message loop. Otherwise the server closes the connection.
 * The message format is `<start-of-message-marker>` `<message-payload>` `<end-of-message-marker>`
 * The start marker consists of the byte sequence `1 2 3 4`
 * The end marker consists of the byte sequence `4 3 2 1`
-* Numerical properties are represented in big endian format
 
 # Message property types
 
-Throughout the message payload definitions the following property types are used: 
+Throughout the message payload format definitions the following property types are used:
 
-* `<MessageType>`: 2 Byte signed
-* `<SampleRate>`: 4 Byte signed
-* `<SampleWidth>`: 2 Byte signed
-* `<ChannelCount>`: 2 Byte signed
-* `<BufferSizeFrames>`: 4 Byte signed
-* `<SampleDataLength>`: 4 Byte signed
-* `<16BitSample>`: 2 Byte signed
-* `<OmitAudioOutput>`: 2 Byte signed 
+* `<MessageType>`: 2 Byte signed big endian
+* `<SampleRate>`: 4 Byte signed big endian
+* `<SampleWidth>`: 2 Byte signed big endian
+* `<ChannelCount>`: 2 Byte signed big endian
+* `<BufferSizeFrames>`: 4 Byte signed big endian
+* `<SampleDataLength>`: 4 Byte signed big endian
+* `<16BitSample>`: 2 Byte signed big endian
+* `<OmitAudioOutput>`: 2 Byte signed big endian
 
 # Messages
 
