@@ -80,7 +80,7 @@ Sent by server as response to an `Init` message to acknowledge that audio output
 ## GetFrames
 
 Sent by server to request audio data. In general the client is supposed to send
-back a `Frames` message providing an amount of samples according to `<BufferSizeFrames>`
+back a `Frames` message providing an amount of frames according to `<BufferSizeFrames>`
 as returned by `<AckInit>`.
 The client may send back a less number of frames, because for example an underlying data source
 has been exhausted.
