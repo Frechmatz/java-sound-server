@@ -1,6 +1,8 @@
 # Java Sound Server
 
-Java-Sound-Server is an audio output "Speaker" server that uses the Java Sound API.
+Java-Sound-Server is an audio output "Speaker" server that uses the Java Sound API. 
+The server opens a port to which clients can connect and play audio.
+Audio data consists of PCM samples that are rendered by the client.
 
 ## Specification
 
