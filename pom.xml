@@ -7,6 +7,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>java-sound-server</name>
     <description>java-sound-server</description>
+    <packaging>jar</packaging>
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
