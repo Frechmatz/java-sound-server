@@ -22,9 +22,10 @@ public class Application {
 
     public static void main(String[] args) {
         ServerSocket serverSocket = null;
+        int port = args.length > 0 ? Integer.parseInt(args[0]) : 9000;
         try {
-            logger.info("Starting socket server");
-            serverSocket = new ServerSocket(9000);
+            logger.info("Starting server on port " + port);
+            serverSocket = new ServerSocket(port);
             while (true) {
                 logger.info("Accepting connection...");
                 Socket socket = serverSocket.accept();
