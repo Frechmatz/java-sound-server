@@ -10,8 +10,21 @@ Java-Sound-Server is an audio output "Speaker" server that uses the Java Sound A
 
 [Common Lisp](https://github.com/Frechmatz/cl-java-sound-client)
 
-## Todos
+## Build and start
 
-* How to start server
-* Define port via command-line arg
+The server requires Java version 11 or greater.
+
+**Build**
+
+`mvn clean install`
+
+**Run**
+
+Start server on default port 9000
+
+`mvn exec:java`
+
+Start server on port 8888
+
+`mvn exec:java -Dexec.args="8888"`
 
