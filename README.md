@@ -12,13 +12,13 @@ Audio data consists of PCM samples that are rendered by the client.
 
 [Common Lisp](https://github.com/Frechmatz/cl-java-sound-client)
 
-## How to build the server
+## Build
 
 The server requires Java version 11 or greater.
 
 `mvn clean install`
 
-## How to start the server
+## Start
 
 Start server and accept connections on default port 9000
 
