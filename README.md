@@ -14,7 +14,7 @@ Audio data consists of PCM samples that are rendered by the client.
 
 ## Build
 
-The server requires Java version 11 or greater.
+Requires Java 11 or greater.
 
 `mvn clean install`
 
