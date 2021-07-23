@@ -29,7 +29,9 @@ public class Application {
             try {
                 final Session session = SessionFactory.instantiate(socket.getInputStream());
                 if (!(session.getMajorVersion() == 1 && session.getMinorVersion() == 0))
-                    throw new Exception("Version not supported");
+                    throw new Exception(String.format("Version %s.%s not supported",
+                            session.getMajorVersion(),
+                            session.getMinorVersion()));
                 logger.info("Accepted " + session);
                 socket.getOutputStream().write(0); // Accepted
                 socket.getOutputStream().flush();
