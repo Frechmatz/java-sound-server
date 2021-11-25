@@ -68,7 +68,7 @@ Sent by client to initialize audio output. Server sends back an `AckInit` messag
 * `<SampleWidth>`: Representation of a sample. 2 == `<16BitSample>`. Must be 2
 * `<ChannelCount>`: Number of audio channels, for example 2
 * `<BufferSizeFrames>`: Buffer size of audio device. Might be overwritten by the server
-* `<OmitAudioOutput>`: 1 == `<Frames>` messages will not pushed to the audio device 
+* `<OmitAudioOutput>`: 1 == `Frames` messages will not pushed to the audio device 
 
 ## AckInit
 
@@ -81,7 +81,7 @@ Sent by server as response to an `Init` message to acknowledge that audio output
 
 Sent by server to request audio data. In general the client is supposed to send
 back a `Frames` message providing an amount of frames according to `<BufferSizeFrames>`
-as returned by `<AckInit>`.
+as returned by `AckInit`.
 The client may send back a less number of frames, because for example an underlying data source
 has been exhausted.
 The client may also send back a `Stop` message to pause audio output or a `Close` message
