@@ -23,7 +23,7 @@ Initial version
 
 # Session initialization
 
-After a connection has been established, the client must sent a session initialization
+After a connection has been established, the client must send a session initialization
 data block to let the server know about the message format and message exchange protocol
 that will be used.
 
