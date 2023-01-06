@@ -12,10 +12,10 @@ Initial version
 
 * Client establishes a TCP connection with server
 * Client sends session initialization data
-* Server reads session initialization data and may close the connection
+* Server initializes session
 * Server starts message loop
 * Client sends an `Init` message
-* Server initializes Java Sound audio output and sends an `AckInit` message or closes the connection
+* Server initializes Java Sound audio output and sends an `AckInit` message
 * Client sends a `Start` message
 * Server sends a `GetFrames` message
 * Client sends a `Frames` message
