@@ -10,7 +10,7 @@ Initial version
 
 # The general flow
 
-* Client establishes a socket connection with server
+* Client establishes a TCP connection with server
 * Client sends session initialization data
 * Server reads session initialization data and may close the connection
 * Server starts message loop
