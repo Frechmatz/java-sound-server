@@ -105,7 +105,7 @@ Sent by client to start audio output or to resume paused audio output. Server pr
 
 ## Stop
 
-Sent by client to pause audio output. The server will no longer send `GetFrames` message.
+Sent by client to pause audio output. The server will no longer send `GetFrames` messages.
 
 * `<MessageType>`: 6
 
